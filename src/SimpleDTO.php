@@ -6,7 +6,7 @@ readonly abstract class SimpleDTO
 {
     /**
      * Creates object from array.
-     * Validates passed array with names of parameters in __construct and keys inside array
+     * Validates passed array with names of parameters in __construct and types
      * 
      * @throws \InvalidArgumentException
      * @throws \UnexpectedValueException

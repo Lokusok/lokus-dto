@@ -1,7 +1,7 @@
 {
     "name": "lokus/dto",
     "version": "1.0.0",
-    "description": "Package for creating DTO",
+    "description": "Package for creating DTOs",
     "type": "library",
     "license": "MIT",
     "autoload": {
