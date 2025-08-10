@@ -9,6 +9,16 @@ Installation:
 Example of usage:
 
 ```php
+use Lokus\Dto\SimpleDTO;
+
+final readonly class PostDTO extends SimpleDTO
+{
+    public function __construct(
+        public string $title,
+        public string $content,
+    ) {}
+}
+
 $data = [
     'title' => 'Simple Title',
     'content' => 'Simple Content',
