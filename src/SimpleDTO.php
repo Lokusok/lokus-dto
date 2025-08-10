@@ -3,6 +3,7 @@
 namespace Lokus\Dto;
 
 use LogicException;
+use ReflectionClass;
 
 readonly abstract class SimpleDTO
 {
@@ -58,9 +59,11 @@ readonly abstract class SimpleDTO
         }
 
         $result = $reflector->newInstanceWithoutConstructor();
+        $reflectorResult = new ReflectionClass($result::class);
 
-        foreach ($mapValuesParams as $property => $value) {
-            $result->{$property} = $value;
+        foreach ($reflectorResult->getProperties() as $property) {
+            $value = $mapValuesParams[$property->getName()];
+            $property->setValue($result, $value);
         }
 
         return $result;
