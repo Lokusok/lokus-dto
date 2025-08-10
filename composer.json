@@ -1,0 +1,20 @@
+{
+    "name": "lokus/dto",
+    "version": "1.0.0",
+    "description": "Package for creating DTO",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Lokus\\Dto\\": "src/",
+            "Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": ">=8.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^12",
+        "symfony/var-dumper": "^7.3"
+    }
+}
