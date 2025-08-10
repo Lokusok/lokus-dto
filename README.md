@@ -1,4 +1,4 @@
-# Package for writing DTOs with validation
+# Package for creating DTOs in type-safe way
 
 This package allows you to create DTO from array with providing validation of key names and parameteres of constructor, also validate types of array values.
 
