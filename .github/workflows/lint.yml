@@ -1,13 +1,13 @@
-name: Tests
+name: Lint
 
 on:
   push:
     branches: ["main"]
   pull_request:
-    brances: ["main"]
+    branches: ["main"]
 
 jobs:
-  test:
+  lint:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -17,7 +17,7 @@ jobs:
           - "8.3"
           - "8.2"
 
-    name: Tests (PHP ${{ matrix.php }} - ${{ matrix.deps }})
+    name: Lint (PHP ${{ matrix.php }} - ${{ matrix.deps }})
 
     steps:
       - uses: actions/checkout@v3
