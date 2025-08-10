@@ -15,7 +15,6 @@ jobs:
         php:
           - "8.4"
           - "8.3"
-          - "8.2"
 
     name: Tests (PHP ${{ matrix.php }} - ${{ matrix.deps }})
 
