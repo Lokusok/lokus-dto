@@ -2,6 +2,8 @@
 
 namespace Lokus\Dto;
 
+use LogicException;
+
 readonly abstract class SimpleDTO
 {
     /**
@@ -16,6 +18,14 @@ readonly abstract class SimpleDTO
         $keys = array_keys($data);
 
         $reflector = new \ReflectionClass(static::class);
+        $properties = $reflector->getProperties();
+
+        foreach ($properties as $property) {
+            if ($property->isProtected() || $property->isPrivate()) {
+                throw new LogicException('Properties of DTO cannot be protected or private');
+            }
+        }
+
         $constructor = $reflector->getConstructor();
 
         $parameters = $constructor->getParameters();
@@ -28,6 +38,8 @@ readonly abstract class SimpleDTO
             throw new \InvalidArgumentException('Keys and parameters names are different');
         }
 
+        $mapValuesParams = [];
+
         foreach ($parameters as $parameter) {
             $name = $parameter->getName();
 
@@ -37,14 +49,19 @@ readonly abstract class SimpleDTO
 
             $incomingType = get_debug_type($data[$name]);
 
+            $mapValuesParams[$name] = $data[$name];
+
             if ($desiredTypeName !== $incomingType) {
                 $message = "Type mismatch. Desired: \"{$desiredTypeName}\", given: \"{$incomingType}\"";
                 throw new \UnexpectedValueException($message);
             }
         }
 
-        /** @phpstan-ignore new.static */
-        $result = new static(...$data);
+        $result = $reflector->newInstanceWithoutConstructor();
+
+        foreach ($mapValuesParams as $property => $value) {
+            $result->{$property} = $value;
+        }
 
         return $result;
     }

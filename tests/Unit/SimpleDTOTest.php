@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 use Tests\Examples\PostDTO;
+use Tests\Examples\PostDTOBad;
 
 final class SimpleDTOTest extends TestCase
 {
@@ -43,5 +44,17 @@ final class SimpleDTOTest extends TestCase
         ];
 
         PostDTO::fromArray($data);
+    }
+
+    public function testThrowsExceptionWithProtectedOrPrivatePropertiesOnDTO(): void
+    {
+        $this->expectException(\LogicException::class);
+
+        $data = [
+            'title' => 'Simple Title',
+            'content' => 'Simple Content',
+        ];
+
+        PostDTOBad::fromArray($data);
     }
 }

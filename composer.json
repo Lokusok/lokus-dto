@@ -1,6 +1,6 @@
 {
     "name": "lokus/dto",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Package for creating DTOs",
     "type": "library",
     "license": "MIT",
@@ -20,6 +20,10 @@
     },
     "scripts": {
         "test": "phpunit",
-        "lint": "phpstan"
+        "lint": "phpstan",
+        "verify": [
+            "@test",
+            "@lint"
+        ]
     }
 }
