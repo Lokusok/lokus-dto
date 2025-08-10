@@ -7,7 +7,7 @@ use Tests\Examples\PostDTO;
 
 final class SimpleDTOTest extends TestCase
 {
-    public function testCanBeCreatedFromArray()
+    public function testCanBeCreatedFromArray(): void
     {
         $data = [
             'title' => 'Simple Title',
@@ -21,7 +21,7 @@ final class SimpleDTOTest extends TestCase
         $this->assertEquals($dto->content, $data['content']);
     }
 
-    public function testThrowsExceptionWithInvalidKeys()
+    public function testThrowsExceptionWithInvalidKeys(): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -33,7 +33,7 @@ final class SimpleDTOTest extends TestCase
         PostDTO::fromArray($data);
     }
 
-    public function testThrowsExceptionWithInvalidTypes()
+    public function testThrowsExceptionWithInvalidTypes(): void
     {
         $this->expectException(\UnexpectedValueException::class);
 

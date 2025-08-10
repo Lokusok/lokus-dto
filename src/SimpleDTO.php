@@ -8,7 +8,8 @@ readonly abstract class SimpleDTO
      * Creates object from array.
      * Validates passed array with names of parameters in __construct and keys inside array
      * 
-     * @throws InvalidArgumentException|UnexpectedValueException
+     * @throws \InvalidArgumentException
+     * @throws \UnexpectedValueException
      */
     public static function fromArray(array $data): static
     {
@@ -29,16 +30,20 @@ readonly abstract class SimpleDTO
 
         foreach ($parameters as $parameter) {
             $name = $parameter->getName();
-            $desiredType = $parameter->getType()->getName();
+
+            /** @var \ReflectionNamedType */
+            $desiredType = $parameter->getType();
+            $desiredTypeName = $desiredType->getName();
 
             $incomingType = get_debug_type($data[$name]);
 
-            if ($desiredType !== $incomingType) {
-                $message = "Type mismatch. Desired: \"{$desiredType}\", given: \"{$incomingType}\"";
+            if ($desiredTypeName !== $incomingType) {
+                $message = "Type mismatch. Desired: \"{$desiredTypeName}\", given: \"{$incomingType}\"";
                 throw new \UnexpectedValueException($message);
             }
         }
 
+        /** @phpstan-ignore new.static */
         $result = new static(...$data);
 
         return $result;
